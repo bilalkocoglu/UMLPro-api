@@ -72,7 +72,6 @@ public class LanguageHelper {
         for (Function fun: table.getFunctions()) {
             classBody.append(enter + tab);
 
-
             if (lang == Language.PHP || ((lang == Language.JAVA || lang == Language.CHARP) && table.getType().equals("class"))) {
                 if (fun.getAccess().equals("+")) {
                     classBody.append("public ");
@@ -80,7 +79,6 @@ public class LanguageHelper {
                     classBody.append("private ");
                 }
             }
-
 
             if (lang == Language.PHP) {
                 classBody.append("function " + fun.getName());
@@ -103,7 +101,11 @@ public class LanguageHelper {
         for (Property prop: properties) {
             classBody.append(enter);
 
-            classBody.append(tab + "public " + prop.getType() + " get" + prop.getName() + "() {" + enter);
+            String propName = prop.getName();
+            String upperPropName = propName.toUpperCase();
+            propName = upperPropName.charAt(0) + propName.substring(1);
+
+            classBody.append(tab + "public " + prop.getType() + " get" + propName + "() {" + enter);
             classBody.append(tab + tab + "return this." + prop.getName() + ";" + enter);
             classBody.append(tab + "}" + enter);
 
